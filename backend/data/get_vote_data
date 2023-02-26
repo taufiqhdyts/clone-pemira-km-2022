@@ -1,0 +1,21 @@
+#!/usr/bin/bash
+
+echo 'input user database: '
+
+read user
+
+echo 'input password: '
+
+read password
+
+echo 'input database: '
+
+read db_name
+
+mysql -u $user -p$password < ./export_vote.sql $db_name > non_parsed_output.txt
+
+sed 's/\t/,/g' non_parsed_output.txt > vote.csv
+
+rm ./non_parsed_output.txt
+
+echo 'Success'
